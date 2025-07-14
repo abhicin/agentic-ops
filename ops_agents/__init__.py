@@ -6,6 +6,14 @@ from .code_agent import CodeAgent
 from .database_agent import DatabaseAgent
 from .incident_agent import IncidentAgent
 from .jira_agent import JiraAgent
+from .llm import (
+    LLM,
+    OpenAILLM,
+    LangGraphLLM,
+    CrewAILLM,
+    SemanticKernelLLM,
+    AzureOpenAILLM,
+)
 
 __all__ = [
     "Orchestrator",
@@ -15,4 +23,10 @@ __all__ = [
     "DatabaseAgent",
     "IncidentAgent",
     "JiraAgent",
+    "LLM",
+    "OpenAILLM",
+    "LangGraphLLM",
+    "CrewAILLM",
+    "SemanticKernelLLM",
+    "AzureOpenAILLM",
 ]

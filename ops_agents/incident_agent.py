@@ -1,5 +1,5 @@
 from .base import Agent
-from .llm import LLM
+from .llm import LLM, OpenAILLM
 
 
 class IncidentAgent(Agent):
@@ -7,7 +7,7 @@ class IncidentAgent(Agent):
 
     def __init__(self, llm: LLM | None = None):
         super().__init__("incident")
-        self.llm = llm or LLM()
+        self.llm = llm or OpenAILLM()
 
     def run(self, prompt: str) -> str:
         query = f"Investigate incident: {prompt}"

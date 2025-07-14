@@ -1,5 +1,5 @@
 from .base import Agent
-from .llm import LLM
+from .llm import LLM, OpenAILLM
 
 
 class JiraAgent(Agent):
@@ -7,7 +7,7 @@ class JiraAgent(Agent):
 
     def __init__(self, llm: LLM | None = None):
         super().__init__("jira")
-        self.llm = llm or LLM()
+        self.llm = llm or OpenAILLM()
 
     def run(self, prompt: str) -> str:
         query = f"Work with JIRA: {prompt}"

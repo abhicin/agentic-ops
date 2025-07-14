@@ -1,0 +1,47 @@
+import pytest
+from ops_agents import Orchestrator
+
+class FakeLLM:
+    def __init__(self):
+        self.prompts = []
+    def complete(self, prompt: str) -> str:
+        self.prompts.append(prompt)
+        return f"mock-{prompt}"
+
+def make_orchestrator():
+    orch = Orchestrator()
+    # replace llm instances with fakes
+    for agent in [
+        orch.log_agent,
+        orch.code_agent,
+        orch.db_agent,
+        orch.incident_agent,
+        orch.jira_agent,
+    ]:
+        agent.llm = FakeLLM()
+    return orch
+
+@pytest.mark.parametrize(
+    "prompt,agent,query",
+    [
+        ("show logs for 500 error", "log", "Analyze logs for: show logs for 500 error"),
+        ("update code in repo", "code", "Assist with code for: update code in repo"),
+        ("run sql query", "database", "Handle database task: run sql query"),
+        ("incident 42 ongoing", "incident", "Investigate incident: incident 42 ongoing"),
+        ("create jira ticket", "jira", "Work with JIRA: create jira ticket"),
+        ("hello world", "code", "Assist with code for: hello world"),
+    ],
+)
+def test_dispatch_routing(prompt, agent, query):
+    orch = make_orchestrator()
+    result = orch.dispatch(prompt)
+    assert result.agent == agent
+    assert result.response == f"mock-{query}"
+
+
+def test_agent_query_used():
+    orch = make_orchestrator()
+    result = orch.dispatch("check logs now")
+    assert result.agent == "log"
+    assert orch.log_agent.llm.prompts[-1] == "Analyze logs for: check logs now"
+    assert result.response == "mock-Analyze logs for: check logs now"
