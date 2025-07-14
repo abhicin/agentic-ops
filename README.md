@@ -30,6 +30,11 @@ print(result.agent, result.response)
 
 Set the `OPENAI_API_KEY` environment variable to enable LLM calls.
 
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
 ## Configuring LLM backends
 
 Agents accept any implementation of the ``LLM`` interface. The default
@@ -52,3 +57,4 @@ print(result.response)
 
 Set any required API keys (e.g. ``OPENAI_API_KEY``) or service URLs in your
 environment variables to activate the chosen backend.
+
