@@ -1,5 +1,5 @@
 from .base import Agent
-from .llm import LLM
+from .llm import LLM, OpenAILLM
 
 
 class LogAgent(Agent):
@@ -7,7 +7,7 @@ class LogAgent(Agent):
 
     def __init__(self, llm: LLM | None = None):
         super().__init__("log")
-        self.llm = llm or LLM()
+        self.llm = llm or OpenAILLM()
 
     def run(self, prompt: str) -> str:
         # In reality this would parse and analyze logs
