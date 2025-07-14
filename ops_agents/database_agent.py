@@ -1,5 +1,5 @@
 from .base import Agent
-from .llm import LLM
+from .llm import LLM, OpenAILLM
 
 
 class DatabaseAgent(Agent):
@@ -7,7 +7,7 @@ class DatabaseAgent(Agent):
 
     def __init__(self, llm: LLM | None = None):
         super().__init__("database")
-        self.llm = llm or LLM()
+        self.llm = llm or OpenAILLM()
 
     def run(self, prompt: str) -> str:
         query = f"Handle database task: {prompt}"

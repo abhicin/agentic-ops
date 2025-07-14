@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .base import Agent
+from .llm import LLM, OpenAILLM
 from .log_agent import LogAgent
 from .code_agent import CodeAgent
 from .database_agent import DatabaseAgent
@@ -19,12 +20,13 @@ class OrchestrationResult:
 class Orchestrator:
     """Route a prompt to the appropriate agent based on simple heuristics."""
 
-    def __init__(self):
-        self.log_agent = LogAgent()
-        self.code_agent = CodeAgent()
-        self.db_agent = DatabaseAgent()
-        self.incident_agent = IncidentAgent()
-        self.jira_agent = JiraAgent()
+    def __init__(self, llm: LLM | None = None):
+        llm = llm or OpenAILLM()
+        self.log_agent = LogAgent(llm=llm)
+        self.code_agent = CodeAgent(llm=llm)
+        self.db_agent = DatabaseAgent(llm=llm)
+        self.incident_agent = IncidentAgent(llm=llm)
+        self.jira_agent = JiraAgent(llm=llm)
 
     def dispatch(self, prompt: str) -> OrchestrationResult:
         lowered = prompt.lower()
