@@ -1,0 +1,8 @@
+database:
+  connection_string: postgresql://user:pass@localhost/db
+jira:
+  url: https://jira.example.com
+github:
+  token: ghp_exampletoken
+servicenow:
+  url: https://servicenow.example.com

@@ -58,3 +58,34 @@ print(result.response)
 Set any required API keys (e.g. ``OPENAI_API_KEY``) or service URLs in your
 environment variables to activate the chosen backend.
 
+## Configuration file
+
+Agents can optionally read connection details for external systems from a YAML
+configuration file. The orchestrator automatically loads ``ops_config.yml`` from
+the project root or the path specified by the ``OPS_CONFIG_FILE`` environment
+variable. A sample configuration might look like:
+
+```yaml
+database:
+  connection_string: postgresql://user:pass@localhost/db
+jira:
+  url: https://jira.example.com
+github:
+  token: ghp_exampletoken
+servicenow:
+  url: https://servicenow.example.com
+```
+
+Pass the loaded configuration to agents or let the ``Orchestrator`` do so
+automatically:
+
+```python
+from ops_agents import Orchestrator, load_config
+
+config = load_config()
+orch = Orchestrator(config=config)
+```
+
+Each agent receives the configuration object and can use the values to connect
+to databases, JIRA, GitHub or ServiceNow.
+
