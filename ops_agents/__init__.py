@@ -1,6 +1,7 @@
 """Operational intelligence multi-agent framework."""
 
 from .orchestrator import Orchestrator, OrchestrationResult
+from .config import Config, load_config
 from .log_agent import LogAgent
 from .code_agent import CodeAgent
 from .database_agent import DatabaseAgent
@@ -29,4 +30,6 @@ __all__ = [
     "CrewAILLM",
     "SemanticKernelLLM",
     "AzureOpenAILLM",
+    "Config",
+    "load_config",
 ]

@@ -1,5 +1,5 @@
 import pytest
-from ops_agents import Orchestrator
+from ops_agents import Orchestrator, Config
 
 class FakeLLM:
     def __init__(self):
@@ -55,3 +55,13 @@ def test_agent_query_used():
     assert result.agent == "log"
     assert orch.log_agent.llm.prompts[-1] == "Analyze logs for: check logs now"
     assert result.response == "mock-Analyze logs for: check logs now"
+
+
+def test_config_passed_to_agents():
+    cfg = Config(database_url="sqlite:///db.sqlite")
+    orch = Orchestrator(config=cfg)
+    assert orch.log_agent.config is cfg
+    assert orch.code_agent.config is cfg
+    assert orch.db_agent.config is cfg
+    assert orch.incident_agent.config is cfg
+    assert orch.jira_agent.config is cfg
