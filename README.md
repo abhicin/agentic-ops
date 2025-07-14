@@ -29,3 +29,7 @@ print(result.agent, result.response)
 ```
 
 Set the `OPENAI_API_KEY` environment variable to enable LLM calls.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
