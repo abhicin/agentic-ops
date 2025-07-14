@@ -30,6 +30,16 @@ def make_orchestrator():
         ("incident 42 ongoing", "incident", "Investigate incident: incident 42 ongoing"),
         ("create jira ticket", "jira", "Work with JIRA: create jira ticket"),
         ("hello world", "code", "Assist with code for: hello world"),
+        (
+            "why is task ID or request ID for example - TID1234 failing ? check if issue was caused by recent code changes",
+            "code",
+            "Assist with code for: why is task ID or request ID for example - TID1234 failing ? check if issue was caused by recent code changes",
+        ),
+        (
+            "give me processing time and latency of task ID for example - TID4567",
+            "code",
+            "Assist with code for: give me processing time and latency of task ID for example - TID4567",
+        ),
     ],
 )
 def test_dispatch_routing(prompt, agent, query):
